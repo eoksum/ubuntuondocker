@@ -3,15 +3,15 @@ MAINTAINER eoksum "https://github.com/eoksum/ubuntuondocker"
 
 ENV LANG C.UTF-8
 
+ADD init.sh /
+RUN mkdir /root/.ssh
+ADD geotr_id_rsa.pub /root/.ssh/id_rsa.pub
+RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
+
 RUN apt-get update && apt-get install -y --no-install-recommends lsb-core openssh-server cron wget curl git vim nano sudo ca-certificates mtr
 
 RUN mkdir /var/run/sshd \
 mkdir /var/run/cron
-
-ADD init.sh /
-RUN mkdir /root/.ssh
-ADD geotr_id_rsa /root/.ssh/id_rsa
-ADD geotr_id_rsa.pub /root/.ssh/id_rsa.pub
 
 RUN echo 'root:root' |chpasswd
 

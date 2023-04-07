@@ -22,4 +22,5 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 22
 
-CMD    ["/init.sh"]
+RUN chmod 755 ./init.sh
+CMD ["/init.sh"]

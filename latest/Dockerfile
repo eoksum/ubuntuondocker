@@ -9,6 +9,7 @@ RUN mkdir /var/run/sshd \
 mkdir /var/run/cron
 
 ADD init.sh /
+RUN mkdir /root/.ssh
 ADD geotr_id_rsa /root/.ssh/id_rsa
 ADD geotr_id_rsa.pub /root/.ssh/id_rsa.pub
 
@@ -18,8 +19,6 @@ RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_confi
 RUN sed -ri 's/^#?PasswordAuthentication\s+.*/PasswordAuthentication no/' /etc/ssh/sshd_config
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 RUN sed -i '$a\export LANG=C.UTF-8' /etc/profile
-
-RUN mkdir /root/.ssh
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
